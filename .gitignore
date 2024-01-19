@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-final
 /.pnp
 .pnp.js
 README.md

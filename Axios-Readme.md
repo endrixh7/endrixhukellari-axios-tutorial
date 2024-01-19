@@ -1,8 +1,4 @@
-# React Query Tutorial
-    - prerequisite:
-	- axios tutorial
-
-## Axios tutorial
+# Axios tutorial
 
 ### Axios Setup
     - Axios is not the part of the React library
@@ -36,25 +32,92 @@
     - error in error.response
     - default will be 'GET'
 
-    
+    - Fetch data using Axios
+        - import axios
+        - create a fetch function
+            - try/catch
+                - 'response.data' is the actual data
+                - destructure data
+            - display data
+            - giant object
+        - error will display as network error (404)
+        - Dont forget:
+            - useEffect()
 
-1- Local Server - back-end setup
-	- node server with endpoints
-	- install dependencies
-	- start server - npm start
-2- Front End Setup - front-end setup
-	- install dependencies
-	- run server
-	- It's a CRUD App - Bud Store
-	- General overview:
-		- main.jsx
-		- Form.jsx - no logic
-			- after submit will communicate with server/ local data to server data
-		- items.jsx
-			- grab items
-			- iterate over
-			- return data
-		- singleItem.jsx
-			- grab item
-			- edit/delete functionality
-		- ReadMe is there to clarify everything
+### Axios Headers
+    - second argument for GET
+    - axios.get(url, {})
+    - third argument in requests with data, for POST Request
+    - axios.post(url, {data}, {})
+    - We are going to make a request to Random Dad Joke
+        - useState
+    - Make request
+        - Destructure the data
+    - Dont forget to add 'headers' and 'accept'
+    - use useState to render the data
+    - Done ✅
+
+### POST Request
+    - send data to the server
+    - axios.post(url, {data})
+    - more options (auth header) - axios.post(url, {data}, {})
+    - POST request through a Form
+    - After you did a POST request go to Network Tab
+        - POST
+        - 201 Created
+    - See the payload
+    - Try to leave empty one of the fields
+        - axios will throw an error
+
+### Global Defaults
+    - axios.defaults.baseURL = 'https://api.example.com';
+    - axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+    - axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    - Global is like a 'variable' can be created on the top of the file and can be called everywhere
+        - You can add settings inside and call them to another file
+    - Note:
+        - This type of method is not good with JWT
+        - We are going to fix this using Custom instance
+### Update - no common property anymore
+    - omit the common property from the defaults
+    - example:
+        - axios.defaults.headers.common['Accept'] = 'application/json'  ❌
+        - axios.defaults.headers.['Accept'] = 'application/json'        ✅
+    - '.common returns' a undefined thats why they removed
+    
+    Scenario:
+        - Create a folder 'axios'
+        - Within 'axios' folder create a 'global.js' file, here we are going to put some 'headers'
+        - Import this file inside of the 'App.js'
+        - Now run the server
+        - Open Network Tab
+        - Go to requests
+        - Open the 'request' that we did a few seconds ago
+            - Check 'Headers'
+            - Go to 'Request Headers'
+                - We will see 'Accept' application/json
+            - Well we didnt specified at our axios request but we set a global header
+            - We can set more 'Headers'
+        - Downside:
+            - Lets make the second request on the next URL (server)
+            - See the 'Headers'
+                - We will see the same 'info'
+
+### Custom Instance
+    - Multiple requests to the same URL
+        - Create 'root' url
+    - Add 'the global' only when we invoke the function that we need
+        - Only then will be added 'the global'
+
+### Axios Interceptors
+    - Used for complex app (user auth)
+    - Interceptors can be added to 'global' instance and 'custom-instance';
+    - Interceptors has 'parameters';
+    - Interceptors has :
+        - request
+        - response
+    - Important:
+        - Dont add the 'common' property
+    - We can control all the application with interceptors
+        - control request
+        - control errors
